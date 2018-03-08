@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * test suite for testing ClassRoom class.
  */
-public class ClassRoomTester {
+public class ClassRoomTest {
 
   /**
    * Constant value 1.

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * test suite for class Student.
  */
-public class StudentTester {
+public class StudentTest {
 
   /**
    * Constant value 1.
@@ -50,7 +50,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check subjects are added.
    */
   @Test
   public final void testGetSubjects() {
@@ -60,7 +60,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check subjects are empty.
    */
   @Test
   public final void testGetSubjectsWithMisfit() {
@@ -70,7 +70,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check the name of student.
    */
   @Test
   public final void testGetName() {
@@ -81,7 +81,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check the roll number.
    */
   @Test
   public final void testGetRollNumber() {
@@ -91,7 +91,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check presence of subject.
    */
   @Test
   public final void testHasSubject() {
@@ -99,7 +99,7 @@ public class StudentTester {
   }
 
   /**
-   *
+   * test case to check absence of subject.
    */
   @Test
   public final void testHasSubjectWithJeff() {
@@ -107,4 +107,15 @@ public class StudentTester {
         misfit.hasSubjects(), false);
   }
 
+  /**
+   * test case to check for stringify student.
+   */
+  @Test
+  public final void testToString() {
+    String expectedResult = "Roll No: " +
+        genius.getRollNumber() + "\nName: " + genius.getName();
+    assertEquals("Student's roll number and name is displayed",
+        genius.toString(),
+        expectedResult);
+  }
 }
