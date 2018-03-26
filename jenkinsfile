@@ -2,20 +2,16 @@ pipeline{
  agent any
  
  stages {
-   stage('Build'){
+   stage('Checkstyle'){
       steps{
-        echo 'Building...'
+	sh 'mvn checkstyle:checkstyle'
       }
    }
    stage('Test'){
       steps{
-        echo 'Testing...'
+        echo 'mvn test'
       }
    }
-   stage('Deploy'){
-      steps{
-        echo 'Deploying...'
-      }
-   }
+   
  }
 }
