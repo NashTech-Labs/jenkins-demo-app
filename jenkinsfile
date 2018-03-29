@@ -1,20 +1,49 @@
 pipeline{
- agent any
- tools {
-   maven 'Maven 3.3.9'
-   jdk 'jdk8'
+ agent {
+   docker{
+     image 'maven:3-alpine'
+     args '-v /root/.m2:/root/.m2'
+   }
  }
  stages {
-   stage('Checkstyle'){
+   stage('build'){
       steps{
-	sh 'mvn checkstyle:checkstyle'
+	     sh 'mvn -B -DskipTests clean package'
       }
    }
-   stage('Test'){
+   stage('checkstyle'){
+      steps{
+         sh 'mvn checkstyle:checkstyle'
+      }
+   }
+   stage('test'){
       steps{
         sh 'mvn test'
       }
+      post{
+         always{
+              junit 'target/surefire-reports/*.xml'
+         }
+      }
    }
-   
+   stage('deployment'){
+      steps{
+        sh 'mvn jar:jar install:install help:evaluate -Dexpression=project.name'
+      }
+   }
+   stage('deliver'){
+      steps{
+        PROJECT_NAME=sh(
+          script: 'mvn help:evaluate -Dexpression=project.name | grep "^[^\[]"'
+          returnStdout: true
+        ).trim()
+        PROJECT_VERSION=sh(
+                  script: 'mvn help:evaluate -Dexpression=project.version | grep "^[^\[]"'
+                  returnStdout: true
+        ).trim()
+
+        sh 'java -jar target/${PROJECT_NAME}-${PROJECT_VERSION}.jar'
+      }
+   }
  }
 }
