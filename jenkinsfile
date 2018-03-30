@@ -26,23 +26,9 @@ pipeline{
          }
       }
    }
-   stage('deployment'){
-      steps{
-        sh 'mvn jar:jar install:install help:evaluate -Dexpression=project.name'
-      }
-   }
-   stage('deliver'){
-      steps{
-        PROJECT_NAME=sh(
-          script: 'mvn help:evaluate -Dexpression=project.name | grep "^[^\[]"'
-          returnStdout: true
-        ).trim()
-        PROJECT_VERSION=sh(
-                  script: 'mvn help:evaluate -Dexpression=project.version | grep "^[^\[]"'
-                  returnStdout: true
-        ).trim()
-
-        sh 'java -jar target/${PROJECT_NAME}-${PROJECT_VERSION}.jar'
+   stage('Deliver') {
+      steps {
+         sh './scripts/deliver.sh'
       }
    }
  }
