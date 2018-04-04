@@ -7,11 +7,13 @@ pipeline{
  stages {
    stage('Checkstyle'){
       steps{
+	agent { label "worker-tester" }
 	sh 'mvn checkstyle:checkstyle'
       }
    }
    stage('Test'){
       steps{
+	agent { label "worker-builder" }
         sh 'mvn test'
       }
    }
