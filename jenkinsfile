@@ -5,6 +5,11 @@ pipeline{
    jdk 'jdk8'
  }
  stages {
+   stage('build'){
+      steps{
+	     sh 'mvn -B -DskipTests clean package'
+      }
+   }
    stage('Checkstyle'){
       agent { label "worker-tester" }
       steps{
