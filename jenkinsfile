@@ -9,7 +9,7 @@ pipeline{
       steps{
 	     sh 'mvn -B -DskipTests clean package'
       }
-   }
+   }	
    stage('Checkstyle'){
       agent { label "worker-tester" }
       steps{
